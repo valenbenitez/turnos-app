@@ -40,7 +40,12 @@ export default function Component() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 style={{ fontFamily: 'Montserrat' }} >TUS-TURNOS</h1>
+        <h1 style={{ fontFamily: 'Montserrat' }}>TUS-TURNOS</h1>
+        <nav className={styles.nav}>
+          <Link href="/login">
+            <button className={styles.button}>Iniciar sesion</button>
+          </Link>
+        </nav>
       </header>
 
       <main>

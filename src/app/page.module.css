@@ -9,9 +9,11 @@
 
 .header {
   background-color: #f4f4f4;
-  padding: 1rem;
-  text-align: center;
-  font-family: Montserrat;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Raleway;
 }
 
 .header h1 {
@@ -20,14 +22,22 @@
 }
 
 .nav {
-  margin-top: 1rem;
-  font-family: Montserrat;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .nav a {
   color: #333;
   text-decoration: none;
-  margin: 0 10px;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav a:hover {
+  background-color: #e0e0e0;
 }
 
 .mainSection {
