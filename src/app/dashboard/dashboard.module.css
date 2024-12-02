@@ -1,0 +1,81 @@
+.dashboardContainer {
+    padding: 1rem;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.dashboardHeader {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboardHeader h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.dashboardHeader p {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+/* Estados de carga y error */
+.loading,
+.error,
+.unauthorized {
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.loading {
+    color: #666;
+}
+
+.error {
+    color: #dc2626;
+}
+
+.unauthorized {
+    color: #991b1b;
+}
+
+/* Media queries para tablets y desktop */
+@media (min-width: 640px) {
+    .dashboardContainer {
+        padding: 1.5rem;
+    }
+
+    .dashboardHeader {
+        padding: 1.5rem;
+    }
+
+    .dashboardHeader h1 {
+        font-size: 1.75rem;
+    }
+
+    .dashboardHeader p {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .dashboardContainer {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .dashboardHeader {
+        padding: 2rem;
+    }
+
+    .dashboardHeader h1 {
+        font-size: 2rem;
+    }
+}

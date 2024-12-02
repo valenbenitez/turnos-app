@@ -1,0 +1,216 @@
+.appointmentListContainer {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.listTitle {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.appointmentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 1rem;
+}
+
+.appointmentCard {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.appointmentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.dateTimeInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.appointmentDate {
+    font-size: 0.875rem;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.appointmentTime {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0070f3;
+}
+
+.appointmentDetails {
+    margin-bottom: 1rem;
+}
+
+.appointmentDetails h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.contactInfo p {
+    margin: 0;
+    color: #666;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.icon {
+    font-style: normal;
+}
+
+.status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.confirmed {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.pending {
+    background-color: #fff7ed;
+    color: #9a3412;
+}
+
+.cancelled {
+    background-color: #fef2f2;
+    color: #991b1b;
+}
+
+.completed {
+    background-color: #e0e7ff;
+    color: #3730a3;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.actionButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex: 1;
+    min-width: 100px;
+}
+
+.completeButton {
+    background-color: #0070f3;
+    color: white;
+}
+
+.completeButton:hover {
+    background-color: #0051b3;
+}
+
+.rescheduleButton {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.rescheduleButton:hover {
+    background-color: #d97706;
+}
+
+.cancelButton {
+    background-color: #ef4444;
+    color: white;
+}
+
+.cancelButton:hover {
+    background-color: #dc2626;
+}
+
+.emptyMessage {
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+    font-size: 0.875rem;
+}
+
+.whatsappButton {
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.whatsappButton:hover {
+    background-color: #128C7E;
+}
+
+.whatsappIcon {
+    font-style: normal;
+}
+
+@media (min-width: 768px) {
+    .appointmentListContainer {
+        margin-bottom: 2rem;
+    }
+
+    .listTitle {
+        font-size: 1.5rem;
+        padding: 0;
+    }
+
+    .appointmentsList {
+        padding: 0;
+    }
+}
+
+@media (min-width: 640px) {
+    .actions {
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+    }
+
+    .actionButton {
+        flex: 0 1 auto;
+    }
+}
+
+@media (max-width: 639px) {
+    .actions {
+        flex-direction: column;
+    }
+
+    .actionButton, 
+    .whatsappButton {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { CompanyInfo } from './components/CompanyInfo'
 import { ServiceSelection } from './components/ServiceSelection'
 import { Stepper } from './components/Stepper'
@@ -12,12 +12,17 @@ import styles from './company.module.css'
 import { User } from '@/models/user'
 import { EmployeeSelection } from './components/EmployeeSelection'
 import { createTestEmployee } from '@/test/createTestEmployee'
+import { DateTimeSelection } from './components/DateTimeSelection'
+import { BookingConfirmation } from './components/BookingConfirmation'
+import { useAppointments } from '@/hooks/useAppointment'
+import { ClientInformation } from './components/ClientInformation'
 
 const STEPS: Step[] = [
     { id: 'company', label: 'Empresa' },
     { id: 'service', label: 'Servicio' },
     { id: 'employee', label: 'Profesional' },
     { id: 'datetime', label: 'Fecha y Hora' },
+    { id: 'client', label: 'Datos de contacto' },
     { id: 'confirmation', label: 'Confirmación' }
 ]
 
@@ -26,6 +31,8 @@ export default function BookAppointment() {
     const params = useParams()
     const companyId = params.companyId as string
     const { company, users, loading, error } = useCompanyDetails(companyId)
+    const { createAppointment, loading: isSubmitting } = useAppointments(companyId)
+    const router = useRouter()
 
     const [currentStep, setCurrentStep] = useState<BookingStep>('company')
     const [bookingData, setBookingData] = useState<BookingData>({
@@ -68,6 +75,45 @@ export default function BookAppointment() {
         }
     }
 
+    const handleBookingConfirm = async () => {
+        if (!bookingData.service || !bookingData.employee || !bookingData.dateTime || !bookingData.clientData) {
+            alert('Faltan datos necesarios para crear el turno')
+            return
+        }
+
+        try {
+            const appointment = await createAppointment({
+                companyId: bookingData.companyId,
+                serviceId: bookingData.service.id ?? '',
+                employeeId: bookingData.employee.id ?? '',
+                clientName: bookingData.clientData.name,
+                clientEmail: bookingData.clientData.email,
+                clientPhone: bookingData.clientData.phone ?? '',
+                date: bookingData.dateTime.date,
+                time: bookingData.dateTime.time,
+                status: 'confirmed',
+                duration: bookingData.service.duration,
+                price: bookingData.service.price
+            })
+
+            // Formatear la fecha y hora para la URL
+            const formattedDateTime = `${bookingData.dateTime.date.toLocaleDateString('es-ES')} ${bookingData.dateTime.time}`
+
+            // Redirigir a la página de éxito con los detalles
+            router.push(
+                `/${bookingData.companyId}/success?` +
+                `appointmentId=${appointment.id}&` +
+                `serviceName=${encodeURIComponent(bookingData.service.name)}&` +
+                `dateTime=${encodeURIComponent(formattedDateTime)}&` +
+                `employeeName=${encodeURIComponent(bookingData.employee.name)}`
+            )
+
+        } catch (error) {
+            console.error('Error al confirmar el turno:', error)
+            alert('Hubo un error al confirmar el turno. Por favor, intenta nuevamente.')
+        }
+    }
+
     // Validaciones
     const canProceed = () => {
         switch (currentStep) {
@@ -77,11 +123,13 @@ export default function BookAppointment() {
                 return !!bookingData.service
             case 'employee':
                 return !!bookingData.employee
+            case 'datetime':
+                return !!bookingData.dateTime
             default:
                 return true
         }
     }
-
+    
     // Renderizado condicional del contenido
     const renderStepContent = () => {
         switch (currentStep) {
@@ -105,6 +153,38 @@ export default function BookAppointment() {
                         loading={loading}
                     />
                 ) : null
+            case 'datetime':
+                return bookingData.employee && bookingData.service ? (
+                    <DateTimeSelection
+                        employee={bookingData.employee}
+                        service={bookingData.service}
+                        onDateTimeSelect={(dateTime) =>
+                            setBookingData(prev => ({ ...prev, dateTime }))
+                        }
+                        selectedDateTime={bookingData.dateTime}
+                    />
+                ) : null
+            case 'client':
+                return (
+                    <ClientInformation
+                        onClientDataSubmit={(clientData) => {
+                            setBookingData(prev => ({
+                                ...prev,
+                                clientData
+                            }))
+                            handleNextStep()
+                        }}
+                        loading={loading}
+                    />
+                )
+            case 'confirmation':
+                return (
+                    <BookingConfirmation
+                        bookingData={bookingData}
+                        onConfirm={handleBookingConfirm}
+                        loading={isSubmitting}
+                    />
+                )
             default:
                 return null
         }

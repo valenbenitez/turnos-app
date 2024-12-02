@@ -8,25 +8,43 @@ export const useAppointments = (companyId: string) => {
   const [error, setError] = useState<string | null>(null)
 
   // Crear un nuevo turno
-  const createAppointment = async (appointmentData: CreateAppointment) => {
+  const createAppointment = async (appointmentData: CreateAppointment | any) => {
     setLoading(true)
     setError(null)
+    console.log('appointmentData', appointmentData)
     try {
       const appointmentsRef = collection(db, 'appointments')
+
+      // Crear el objeto de turno con los timestamps necesarios
       const newAppointment = {
         ...appointmentData,
         companyId,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
+        // Convertir la fecha a Timestamp si no lo es ya
+        date:
+          appointmentData.date instanceof Timestamp
+            ? appointmentData.date
+            : Timestamp.fromDate(appointmentData.date as unknown as Date),
+        // Crear un timestamp combinado de fecha y hora
+        dateTime: Timestamp.fromDate(
+          new Date(
+            (appointmentData.date as unknown as Date).getFullYear(),
+            (appointmentData.date as unknown as Date).getMonth(),
+            (appointmentData.date as unknown as Date).getDate(),
+            ...appointmentData.time.split(':').map(Number)
+          )
+        ),
       }
 
       const docRef = await addDoc(appointmentsRef, newAppointment)
+
       return {
         id: docRef.id,
         ...newAppointment,
       }
-    } catch (err) {
-      setError('Error al crear el turno')
+    } catch (err: any) {
+      setError(err)
       console.error('Error creating appointment:', err)
       throw err
     } finally {
@@ -56,7 +74,7 @@ export const useAppointments = (companyId: string) => {
   }
 
   // Obtener todos los turnos de una compañía
-  const getAppointmentsByCompany = async () => {
+  const getAppointmentsByCompany = async (companyId: string) => {
     setLoading(true)
     setError(null)
     try {
@@ -83,11 +101,52 @@ export const useAppointments = (companyId: string) => {
     }
   }
 
+      const getEmployeeAppointmentsByDate = async (employeeId: string, date: Date) => {
+        setLoading(true)
+        setError(null)
+        try {
+          const appointmentsRef = collection(db, 'appointments')
+
+          // Crear timestamps para el inicio y fin del día
+          const startOfDay = new Date(date)
+          startOfDay.setHours(0, 0, 0, 0)
+          const endOfDay = new Date(date)
+          endOfDay.setHours(23, 59, 59, 999)
+
+          const q = query(
+            appointmentsRef,
+            where('companyId', '==', companyId),
+            where('employeeId', '==', employeeId),
+            where('date', '>=', Timestamp.fromDate(startOfDay)),
+            where('date', '<=', Timestamp.fromDate(endOfDay))
+          )
+
+          const querySnapshot = await getDocs(q)
+          const appointments: Appointment[] = []
+
+          querySnapshot.forEach(doc => {
+            appointments.push({
+              id: doc.id,
+              ...doc.data(),
+            } as Appointment)
+          })
+
+          return appointments
+        } catch (err) {
+          setError('Error al obtener los turnos')
+          console.error('Error fetching appointments:', err)
+          throw err
+        } finally {
+          setLoading(false)
+        }
+      }
+
   return {
     createAppointment,
     updateAppointment,
     getAppointmentsByCompany,
     loading,
     error,
+    getEmployeeAppointmentsByDate,
   }
 }

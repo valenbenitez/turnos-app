@@ -3,21 +3,21 @@ import { Timestamp } from 'firebase/firestore'
 export type AppointmentStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed'
 
 export interface Appointment {
-  id?: string
+  id: string
   companyId: string
+  serviceId: string
+  employeeId: string
+  employeeName: string
   clientName: string
-  clientPhone: string
-  clientEmail?: string
+  clientEmail: string
+  clientPhone?: string
   date: Timestamp
-  duration: number // duración en minutos
+  time: string
   status: AppointmentStatus
-  notes?: string
-  service?: string
+  duration: number
+  price: number
   createdAt: Timestamp
-  updatedAt?: Timestamp
+  updatedAt: Timestamp
 }
 
-export type CreateAppointment = Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'> & {
-  createdAt?: Timestamp
-  updatedAt?: Timestamp
-}
+export type CreateAppointment = Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>

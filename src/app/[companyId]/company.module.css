@@ -220,3 +220,373 @@
   color: #444;
   font-size: 0.9rem;
 }
+
+.employeesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.employeeCard {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.employeeCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.selectedEmployee {
+  border-color: #0070f3;
+  background-color: #f8f9ff;
+}
+
+.employeeName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.employeeSchedule {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.employeeSchedule h4 {
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.employeeSchedule p {
+  margin: 0.25rem 0;
+}
+
+.dateTimeContainer {
+    padding: 1rem;
+}
+
+.datesContainer,
+.timeSlotsContainer {
+    margin-bottom: 2rem;
+}
+
+.datesList {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+.dateButton {
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    min-width: 100px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.dateButton:hover {
+    border-color: #0070f3;
+}
+
+.selectedDate {
+    background-color: #0070f3;
+    color: white;
+    border-color: #0070f3;
+}
+
+.timeSlotsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.timeSlot {
+    padding: 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.timeSlot:hover {
+    border-color: #0070f3;
+}
+
+.selectedTime {
+    background-color: #0070f3;
+    color: white;
+    border-color: #0070f3;
+}
+
+.timeSlot.breakTime {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.timeSlot.breakTime:hover {
+    border-color: #e5e5e5;
+}
+
+.confirmationContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.bookingSummary {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.summaryItem {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.summaryItem:last-child {
+    border-bottom: none;
+}
+
+.summaryItem h3 {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.summaryItem p {
+    color: #333;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0070f3;
+}
+
+.confirmButton {
+    width: 100%;
+    padding: 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.confirmButton:hover {
+    background-color: #0051b3;
+}
+
+.confirmButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.clientInfoContainer {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.clientForm {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: #0070f3;
+    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.1);
+}
+
+.errorInput {
+    border-color: #dc2626 !important;
+}
+
+.errorText {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.submitButton:hover {
+    background-color: #0051b3;
+}
+
+.submitButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.successContainer {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+}
+
+.successCard {
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.successIcon {
+    width: 80px;
+    height: 80px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+}
+
+.checkIcon {
+    width: 40px;
+    height: 40px;
+    color: white;
+}
+
+.title {
+    color: #22c55e;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.message {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.appointmentDetails {
+    text-align: left;
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.detailItem {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detailItem:last-child {
+    margin-bottom: 0;
+}
+
+.label {
+    color: #666;
+    font-weight: 500;
+}
+
+.value {
+    color: #333;
+    font-weight: 600;
+}
+
+.actions {
+    margin-top: 2rem;
+}
+
+.homeButton {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #0070f3;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.homeButton:hover {
+    background-color: #0051b3;
+}
+
+@media (max-width: 640px) {
+    .successCard {
+        padding: 2rem;
+    }
+
+    .detailItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
