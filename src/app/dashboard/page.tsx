@@ -3,12 +3,17 @@ import { AppointmentList } from '@/components/AppointmentList'
 import { useUser } from '@/hooks/useUser'
 import { Appointment } from '@/models/appointment'
 import { Timestamp } from 'firebase/firestore'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './dashboard.module.css'
 
 export default function Dashboard() {
     const { user, getUserByEmail } = useUser()
-    const email = sessionStorage.getItem('email')
+    const [email, setEmail] = useState<string | null>(null)
+
+    useEffect(() => {
+        const storedEmail = sessionStorage.getItem('email')
+        setEmail(storedEmail)
+    }, [])
 
     useEffect(() => {
         email && getUserByEmail(email)
