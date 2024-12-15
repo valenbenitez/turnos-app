@@ -20,23 +20,19 @@ export function AppointmentList({
     filterByDate
 }: AppointmentListProps) {
     const [appointments, setAppointments] = useState<Appointment[]>([])
-    const { getAppointmentsByCompany, loading, error } = useAppointments(companyId)
+    const { getAppointmentsByCompany, loading, error, deleteAppointment } = useAppointments(companyId)
 
     useEffect(() => {
-        const loadAppointments = async () => {
-            if (companyId) {
-                const data = await getAppointmentsByCompany(companyId)
-                setAppointments(filterByDate ? data.filter(filterByDate) : data)
-            }
-        }
-
         loadAppointments()
     }, [companyId, filterByDate])
+    
+    const loadAppointments = async () => {
+        if (companyId) {
+            const data = await getAppointmentsByCompany(companyId)
+            setAppointments(filterByDate ? data.filter(filterByDate) : data)
+        }
+    }
 
-    if (loading) return <div>Cargando...</div>
-    if (error) return <div>Error: {error}</div>
-
-    // Ordenar appointments por fecha y hora
     const sortedAppointments = [...appointments].sort((a, b) => {
         const dateA = (a.date as unknown as Timestamp).toDate()
         const dateB = (b.date as unknown as Timestamp).toDate()
@@ -52,6 +48,14 @@ export function AppointmentList({
         return timeA.localeCompare(timeB)
     })
 
+    const handleCancelAppointment = async (id: string) => {
+        await deleteAppointment(id)
+        loadAppointments()
+    }
+
+    if (loading) return <div>Cargando...</div>
+    if (error) return <div>Error: {error}</div>
+
     return (
         <div className={styles.appointmentListContainer}>
             {title && <h2 className={styles.listTitle}>{title}</h2>}
@@ -60,6 +64,7 @@ export function AppointmentList({
                     <AppointmentCard
                         key={appointment.id}
                         appointment={appointment}
+                        onCancel={handleCancelAppointment}
                         // TODO: Add actions
                     />
                 ))}

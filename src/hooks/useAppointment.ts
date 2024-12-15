@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { collection, addDoc, updateDoc, doc, query, where, getDocs, Timestamp, orderBy } from 'firebase/firestore'
+import { collection, addDoc, updateDoc, doc, query, where, getDocs, Timestamp, orderBy, deleteDoc } from 'firebase/firestore'
 import { db } from '@/config/firebase'
 import { Appointment, CreateAppointment } from '@/models/appointment'
 
@@ -101,10 +101,10 @@ export const useAppointments = (companyId: string) => {
     }
   }
 
-      const getEmployeeAppointmentsByDate = async (employeeId: string, date: Date) => {
-        setLoading(true)
-        setError(null)
-        try {
+  const getEmployeeAppointmentsByDate = async (employeeId: string, date: Date) => {
+    setLoading(true)
+    setError(null)
+    try {
           const appointmentsRef = collection(db, 'appointments')
 
           // Crear timestamps para el inicio y fin del día
@@ -138,8 +138,24 @@ export const useAppointments = (companyId: string) => {
           throw err
         } finally {
           setLoading(false)
-        }
-      }
+    }
+  }
+
+  const deleteAppointment = async (appointmentId: string) => {
+    setLoading(true)
+    setError(null)
+    try {
+      const appointmentRef = doc(db, 'appointments', appointmentId)
+      await deleteDoc(appointmentRef)
+      return true
+    } catch (err) {
+      setError('Error al eliminar el turno')
+      console.error('Error deleting appointment:', err)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return {
     createAppointment,
@@ -148,5 +164,6 @@ export const useAppointments = (companyId: string) => {
     loading,
     error,
     getEmployeeAppointmentsByDate,
+    deleteAppointment,
   }
 }

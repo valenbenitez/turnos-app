@@ -4,6 +4,7 @@
   min-height: 100vh;
   padding: 2rem;
   background-color: #f5f5f5;
+  color: #000;
 }
 
 .bookingWrapper {
@@ -290,6 +291,7 @@
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     background: white;
+    color: #000;
     cursor: pointer;
     min-width: 100px;
     text-align: center;
@@ -311,6 +313,7 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1rem;
     padding: 1rem 0;
+    color: #000;
 }
 
 .timeSlot {
@@ -321,6 +324,7 @@
     cursor: pointer;
     text-align: center;
     transition: all 0.2s ease;
+    color: #000;
 }
 
 .timeSlot:hover {
@@ -358,6 +362,7 @@
 }
 
 .summaryItem {
+    color: #000;
     padding: 1rem 0;
     border-bottom: 1px solid #eee;
 }

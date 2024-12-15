@@ -195,7 +195,7 @@ export default function BookAppointment() {
             <div className={styles.bookingWrapper}>
                 <h1 className={styles.title}>Reserva tu turno</h1>
 
-                <Stepper steps={STEPS} currentStep={currentStep} />
+                {/* <Stepper steps={STEPS} currentStep={currentStep} /> */}
 
                 {error && <div className={styles.error}>{error}</div>}
 
